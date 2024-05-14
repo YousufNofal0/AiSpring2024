@@ -24,8 +24,13 @@ joblib_file_DT= 'DT_model.sav'
 joblib_file_log = 'logistic_model.sav'
 
 
-def prdict(amount, merchant, category, time_of_day, model,encoder,scaler):
+def prdict(amount, merchant, category, time_of_day, model):
     # Create a DataFrame with the input features
+
+
+    # date_str = "14/5/2024 16:45"
+    time_of_day = datetime.strptime(time_of_day, "%d/%m/%Y %H:%M")
+
     features = pd.DataFrame({
         'merchant': [merchant],
         'category': [category],
@@ -68,7 +73,7 @@ if choose == 'Home':
     st.subheader('Enter your info')
     
     # User inputs
-    fristName=st.text_input("enter your frist name :")
+    fristName=st.text_input("enter your first name :")
     lastName=st.text_input("enter your last name :")
     cardNum = st.text_input("Enter your Card Number:")
     trans_num=st.text_input("Enter your trans Number: ")
@@ -95,7 +100,7 @@ if choose == 'Home':
     
 
     if st.button("Predict"):
-        if fristName and lastName and cardNum and trans_num and amount and merchant and category and time_of_day and model:
+        # if fristName and lastName and cardNum and trans_num and amount and merchant and category and time_of_day and model:
             try:  
                 sample_prediction = prdict(amount, merchant, category, time_of_day,model,encoder,scaler)
              
@@ -108,7 +113,7 @@ if choose == 'Home':
                     st.write("This indicates fruad process .")
             except Exception as e :
                 st.error(f"An error occurred: {e}")  
-        else :st.warning("please fill all data")    
+        # else :st.warning("please fill all data")    
 
 elif choose == 'About':
     st.title('About Page')
